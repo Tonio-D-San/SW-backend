@@ -9,10 +9,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>it.asansonne</groupId>
-    <artifactId>story-be</artifactId>
+    <artifactId>SW-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>story-be</name>
-    <description>story-be</description>
+    <packaging>jar</packaging>
+    <name>sw-backend</name>
+    <description>SW-backend</description>
     <url/>
     <licenses>
         <license/>
