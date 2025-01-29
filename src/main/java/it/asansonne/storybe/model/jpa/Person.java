@@ -1,7 +1,7 @@
 package it.asansonne.storybe.model.jpa;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import it.asansonne.storybe.model.Model;
+import it.asansonne.storybe.model.Models;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,7 +34,7 @@ import lombok.ToString;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode
 @ToString
-public class Person implements Model {
+public class Person implements Models {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")

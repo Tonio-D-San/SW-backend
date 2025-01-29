@@ -1,6 +1,6 @@
 package it.asansonne.storybe.model.jpa;
 
-import it.asansonne.storybe.model.Model;
+import it.asansonne.storybe.model.Models;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,7 +31,7 @@ import lombok.ToString;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode
 @ToString
-public class Topic implements Model {
+public class Topic implements Models {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")

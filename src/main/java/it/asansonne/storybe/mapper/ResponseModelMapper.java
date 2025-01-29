@@ -1,7 +1,7 @@
 package it.asansonne.storybe.mapper;
 
 import it.asansonne.storybe.dto.Dto;
-import it.asansonne.storybe.model.Model;
+import it.asansonne.storybe.model.Models;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +16,7 @@ import org.springframework.data.domain.Pageable;
  * @param <M> Model parameter
  * @param <D> Dto parameter
  */
-public interface ResponseModelMapper<M extends Model, D extends Dto> {
+public interface ResponseModelMapper<M extends Models, D extends Dto> {
 
   /**
    * To dto list.
