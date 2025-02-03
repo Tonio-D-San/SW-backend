@@ -6,7 +6,7 @@ import static it.asansonne.storybe.constant.SharedConstant.USER_ROLES;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import it.asansonne.storybe.ccsr.component.PersonComponent;
-import it.asansonne.storybe.ccsr.controller.PersonControllerV2;
+import it.asansonne.storybe.ccsr.controller.PersonControllerV1;
 import it.asansonne.storybe.dto.request.PersonGroupRequest;
 import it.asansonne.storybe.dto.request.PersonRequest;
 import it.asansonne.storybe.dto.request.PersonUpdateRequest;
@@ -42,7 +42,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @AllArgsConstructor
 @Tag(name = "PersonController V1")
 @PreAuthorize(ADMIN_ROLES)
-public class PersonControllerV2Impl implements PersonControllerV2 {
+public class PersonControllerV1Impl implements PersonControllerV1 {
   private final PersonComponent personComponent;
 
   @Override

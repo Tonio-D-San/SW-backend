@@ -25,7 +25,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 /**
  * The interface Topic controller v1.
  */
-public interface TopicControllerV2 {
+public interface TopicControllerV1 {
   /**
    * The constant TOPIC_ORDER.
    */

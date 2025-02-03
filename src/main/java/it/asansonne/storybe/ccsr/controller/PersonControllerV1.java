@@ -28,9 +28,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
- * The interface Person controller v 2.
+ * The interface Person controller v1.
  */
-public interface PersonControllerV2 {
+public interface PersonControllerV1 {
   /**
    * The constant SURNAME.
    */

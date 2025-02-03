@@ -5,7 +5,7 @@ import static it.asansonne.storybe.constant.SharedConstant.ADMIN_USER_ROLES;
 import static it.asansonne.storybe.constant.SharedConstant.USER_ROLES;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import it.asansonne.storybe.ccsr.controller.TopicControllerV2;
+import it.asansonne.storybe.ccsr.controller.TopicControllerV1;
 import it.asansonne.storybe.ccsr.component.TopicComponent;
 import it.asansonne.storybe.dto.request.StatusRequest;
 import it.asansonne.storybe.dto.request.TopicRequest;
@@ -36,14 +36,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
- * The type Topic controller v2.
+ * The type Topic controller v1.
  */
 @RestController
-@RequestMapping("api/v2/topics")
+@RequestMapping("api/v1/topics")
 @RequiredArgsConstructor
-@Tag(name = "TopicController V2")
+@Tag(name = "TopicController V1")
 @PreAuthorize(ADMIN_USER_ROLES)
-public class TopicControllerV2Impl implements TopicControllerV2 {
+public class TopicControllerV1Impl implements TopicControllerV1 {
   private final TopicComponent topicComponent;
 
   @Override

@@ -22,6 +22,8 @@ import org.springframework.context.annotation.Configuration;
 @OpenAPIDefinition(servers = {@Server(url = "http://localhost:8081", description = "StoryWeaver")})
 public class OpenApiConfiguration {
   private static final String SEC_SCHEME_OAUTH2 = "oauth2";
+  @Value("${info.app.name}")
+  private String appName;
   @Value("${keycloak.host}")
   private String authServer;
   @Value("${keycloak.realm.name}")
@@ -53,7 +55,7 @@ public class OpenApiConfiguration {
             new SecurityRequirement().addList(SEC_SCHEME_OAUTH2)))
         .info(new Info()
             .version(appVersion)
-            .title("CyberStack API")
+            .title(appName)
             .description(appDescription))
         .externalDocs(pdf);
   }

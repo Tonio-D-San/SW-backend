@@ -26,7 +26,7 @@ import lombok.ToString;
  */
 @Builder
 @Entity
-@Table(name = "user_group")
+@Table(name = "groups")
 @Getter
 @Setter
 @NoArgsConstructor

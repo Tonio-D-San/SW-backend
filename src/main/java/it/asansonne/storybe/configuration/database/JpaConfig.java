@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 @Configuration
 @EnableJpaRepositories(basePackages = "it.asansonne.storybe.ccsr.repository.jpa")
-@EntityScan(basePackages = "it.asansonne.storybe.model")
+@EntityScan(basePackages = "it.asansonne.storybe.model.jpa")
 public class JpaConfig {
 }
