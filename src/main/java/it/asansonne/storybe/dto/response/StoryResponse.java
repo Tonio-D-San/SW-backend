@@ -12,7 +12,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * The type Topic response.
+ * The type Story response.
  */
 @Builder
 @Getter
@@ -21,67 +21,60 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Schema(description = "Representation of the Topic Response DTO")
-public class TopicResponse implements Dto {
+@Schema(description = "Representation of the Story Response DTO")
+public class StoryResponse implements Dto {
   @Schema(
-      description = "Topic Uuid",
+      description = "Story Uuid",
       name = "uuid",
       type = "UUID",
-      example = "This is a topic Uuid")
+      example = "This is a story Uuid")
   private UUID uuid;
 
   @Schema(
-      description = "Topic title",
+      description = "Story title",
       name = "title",
       type = "String",
       example = "This is a title")
   private String title;
 
   @Schema(
-      description = "Topic problem description",
-      name = "problem",
+      description = "Story problem description",
+      name = "description",
       type = "String",
-      example = "This is a topic problem")
-  private String problem;
+      example = "This is a story problem")
+  private String description;
 
   @Schema(
-      description = "Topic solution description",
-      name = "solution",
-      type = "String",
-      example = "This is a topic solution")
-  private String solution;
-
-  @Schema(
-      description = "Topic creation date",
+      description = "Story creation date",
       name = "creationDate",
       type = "Long",
       example = "1727272231956L")
   private Long creationDate;
 
   @Schema(
-      description = "Topic last edit date",
+      description = "Story last edit date",
       name = "lastEditDate",
       type = "Long",
       example = "1727272231956L")
   private Long lastEditDate;
 
   @Schema(
-      description = "Topic's author",
+      description = "Story's author",
       name = "personResponse",
       type = "PersonResponse")
   private PersonResponse personResponse;
 
   @Schema(
-      description = "Topic status",
+      description = "Story status",
       name = "isActive",
       type = "String",
       example = "true")
   private Boolean isActive;
 
   @Schema(
-      description = "Open Topic",
-      name = "isOpen",
+      description = "Story Completed",
+      name = "isCompleted",
       type = "String",
       example = "true")
-  private Boolean isOpen;
+  private Boolean isCompleted;
 }

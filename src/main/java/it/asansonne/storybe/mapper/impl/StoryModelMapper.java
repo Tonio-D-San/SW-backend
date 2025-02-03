@@ -1,66 +1,63 @@
 package it.asansonne.storybe.mapper.impl;
 
-import it.asansonne.storybe.dto.request.TopicRequest;
-import it.asansonne.storybe.dto.response.TopicResponse;
+import it.asansonne.storybe.dto.request.StoryRequest;
+import it.asansonne.storybe.dto.response.StoryResponse;
 import it.asansonne.storybe.mapper.RequestModelMapper;
 import it.asansonne.storybe.mapper.ResponseModelMapper;
-import it.asansonne.storybe.model.jpa.Topic;
+import it.asansonne.storybe.model.jpa.StoryJpa;
 import org.springframework.stereotype.Component;
 
 /**
- * The type Topic mapper.
+ * The type Story mapper.
  */
 
 @Component
-public class TopicModelMapper implements RequestModelMapper<TopicRequest, Topic>,
-    ResponseModelMapper<Topic, TopicResponse> {
+public class StoryModelMapper implements RequestModelMapper<StoryRequest, StoryJpa>,
+    ResponseModelMapper<StoryJpa, StoryResponse> {
 
   @Override
-  public Topic toModel(TopicRequest dto) {
+  public StoryJpa toModel(StoryRequest dto) {
     if (dto == null) {
       return null;
     }
-    return Topic.builder()
+    return StoryJpa.builder()
         .title(dto.getTitle())
-        .problem(dto.getProblem())
-        .solution(dto.getSolution())
-        .isOpen(dto.getSolution() == null)
+        .description(dto.getDescription())
+        .isCompleted(dto.getDescription() == null)
         .build();
   }
 
   @Override
-  public TopicResponse toDto(Topic model) {
+  public StoryResponse toDto(StoryJpa model) {
     if (model == null) {
       return null;
     }
 
-    TopicResponse dto = TopicResponse.builder()
+    StoryResponse dto = StoryResponse.builder()
         .uuid(model.getUuid())
         .title(model.getTitle())
-        .problem(model.getProblem())
-        .solution(model.getSolution())
+        .description(model.getDescription())
         .creationDate(model.getCreationDate())
         .lastEditDate(model.getLastEditDate())
         .isActive(model.getIsActive())
-        .isOpen(model.getIsOpen())
+        .isCompleted(model.getIsCompleted())
         .build();
     dto.setPersonResponse(new PersonModelMapper().toDto(model.getAuthor()));
     return dto;
   }
 
   @Override
-  public Topic dtoToModelResponse(TopicResponse dto) {
+  public StoryJpa dtoToModelResponse(StoryResponse dto) {
     if (dto == null) {
       return null;
     }
-    return Topic.builder()
+    return StoryJpa.builder()
         .title(dto.getTitle())
-        .problem(dto.getProblem())
-        .solution(dto.getSolution())
+        .description(dto.getDescription())
         .creationDate(dto.getCreationDate())
         .lastEditDate(dto.getLastEditDate())
         .isActive(dto.getIsActive())
-        .isOpen(dto.getIsOpen())
+        .isCompleted(dto.getIsCompleted())
         .build();
   }
 }

@@ -1,4 +1,4 @@
-package it.asansonne.storybe.model.node4j;
+package it.asansonne.storybe.model.neo4j;
 
 import it.asansonne.storybe.model.Nodes;
 import java.util.UUID;
@@ -10,12 +10,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
-import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
 
-@Node("MainBoss")
+@Node("story")
 @Builder
 @Getter
 @Setter
@@ -23,27 +24,24 @@ import org.springframework.data.neo4j.core.schema.Property;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode
 @ToString
-public class Boss implements Nodes {
+public class StoryNeo4j implements Nodes {
   @Id
   @GeneratedValue
   @Property(name = "uuid")
   private UUID uuid;
 
-  @Property(name = "nome")
-  private String nome; // Descrizione del nodo
+  @Property(name = "title")
+  private String title;
 
-  @Property(name = "potenza")
-  private int potenza;
+  @Property(name = "description")
+  private String description;
 
-  @Property(name = "abilità")
-  private String abilita;
+  @Property(name = "date_creation")
+  private Long creationDate;
 
-  @Property(name = "descrizione")
-  private String descrizione;
+  @Property(name = "date_last_update")
+  private Long lastEditDate;
 
-//  @Relationship(type = "HAS_CHOICE", direction = Relationship.Direction.OUTGOING)
-//  private List<Choice> choices; // Lista di scelte che portano ad altri nodi
-//
-//  @Version
-//  private Long version;
+  @Version
+  private Long version;
 }

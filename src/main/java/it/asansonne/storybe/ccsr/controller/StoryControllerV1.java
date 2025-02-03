@@ -9,11 +9,11 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import it.asansonne.storybe.dto.request.StatusRequest;
-import it.asansonne.storybe.dto.request.TopicRequest;
-import it.asansonne.storybe.dto.request.TopicUpdateRequest;
-import it.asansonne.storybe.dto.response.TopicResponse;
+import it.asansonne.storybe.dto.request.StoryRequest;
+import it.asansonne.storybe.dto.request.StoryUpdateRequest;
+import it.asansonne.storybe.dto.response.StoryResponse;
 import it.asansonne.storybe.exception.ExceptionMessage;
-import it.asansonne.storybe.util.swagger.schema.PageTopicSchema;
+import it.asansonne.storybe.util.swagger.schema.PageStorySchema;
 import java.security.Principal;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
@@ -23,29 +23,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
- * The interface Topic controller v1.
+ * The interface Story controller v1.
  */
-public interface TopicControllerV1 {
+public interface StoryControllerV1 {
   /**
-   * The constant TOPIC_ORDER.
+   * The constant STORY_ORDER.
    */
-  String TOPIC_ORDER = "creationDate";
+  String STORY_ORDER = "creationDate";
 
   /**
-   * Find topic by uuid topic response.
+   * Find story by uuid story response.
    *
    * @param uuid the uuid
-   * @return the topic response
+   * @return the story response
    */
-  @Operation(summary = "Topic find by uuid")
+  @Operation(summary = "Story find by uuid")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Topic has been found by uuid",
+      @ApiResponse(responseCode = "200", description = "Story has been found by uuid",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-              schema = @Schema(implementation = TopicResponse.class))),
-      @ApiResponse(responseCode = "204", description = "No topic found",
+              schema = @Schema(implementation = StoryResponse.class))),
+      @ApiResponse(responseCode = "204", description = "No story found",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
       @ApiResponse(responseCode = "401",
-          description = "You are not authorized to access the topic",
+          description = "You are not authorized to access the story",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -60,7 +60,7 @@ public interface TopicControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "403",
-          description = "Access to the topic you were trying to reach is prohibited",
+          description = "Access to the story you were trying to reach is prohibited",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -90,27 +90,27 @@ public interface TopicControllerV1 {
                   )
               },
               schema = @Schema(implementation = ExceptionMessage.class)))})
-  TopicResponse findTopicByUuid(
-      @Parameter(name = "uuid", description = "Topic uuid",
+  StoryResponse findStoryByUuid(
+      @Parameter(name = "uuid", description = "Story uuid",
           example = "081081d1-1777-4b59-8b4b-e9ab26186006") UUID uuid);
 
   /**
-   * Find active topics page.
+   * Find active stories page.
    *
    * @param page      the page
    * @param size      the size
    * @param direction the direction
    * @return the page
    */
-  @Operation(summary = "All active topics found")
+  @Operation(summary = "All active stories found")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Active Topics found",
+      @ApiResponse(responseCode = "200", description = "Active Stories found",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-              schema = @Schema(implementation = PageTopicSchema.class))),
-      @ApiResponse(responseCode = "204", description = "No active topics found",
+              schema = @Schema(implementation = PageStorySchema.class))),
+      @ApiResponse(responseCode = "204", description = "No active stories found",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
       @ApiResponse(responseCode = "401",
-          description = "You are not authorized to access the active topics",
+          description = "You are not authorized to access the active stories",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -126,7 +126,7 @@ public interface TopicControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "403",
-          description = "Access to the active topics you were trying to reach is prohibited",
+          description = "Access to the active stories you were trying to reach is prohibited",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -141,28 +141,28 @@ public interface TopicControllerV1 {
                   )
               },
               schema = @Schema(implementation = ExceptionMessage.class)))})
-  Page<TopicResponse> findActiveTopics(
+  Page<StoryResponse> findActiveStories(
       @Parameter(name = "page", description = "page number") Integer page,
       @Parameter(name = "size", description = "element's number in page") Integer size,
       @Parameter(name = "direction", description = "order direction") String direction);
 
   /**
-   * Find inactive topics page.
+   * Find inactive stories page.
    *
    * @param page      the page
    * @param size      the size
    * @param direction the direction
    * @return the page
    */
-  @Operation(summary = "All inactive topics found")
+  @Operation(summary = "All inactive stories found")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Inactive topics found",
+      @ApiResponse(responseCode = "200", description = "Inactive stories found",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-              schema = @Schema(implementation = PageTopicSchema.class))),
-      @ApiResponse(responseCode = "204", description = "No inactive topics found",
+              schema = @Schema(implementation = PageStorySchema.class))),
+      @ApiResponse(responseCode = "204", description = "No inactive stories found",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
       @ApiResponse(responseCode = "401",
-          description = "You are not authorized to access the inactive topics",
+          description = "You are not authorized to access the inactive stories",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -178,7 +178,7 @@ public interface TopicControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "403",
-          description = "Access to the inactive topics you were trying to reach is prohibited",
+          description = "Access to the inactive stories you were trying to reach is prohibited",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -193,13 +193,13 @@ public interface TopicControllerV1 {
                   )
               },
               schema = @Schema(implementation = ExceptionMessage.class)))})
-  Page<TopicResponse> findInactiveTopics(
+  Page<StoryResponse> findInactiveStories(
       @Parameter(name = "page", description = "page number") Integer page,
       @Parameter(name = "size", description = "element's number in page") Integer size,
       @Parameter(name = "direction", description = "order direction") String direction);
 
   /**
-   * Find all topics by author page.
+   * Find all stories by author page.
    *
    * @param page        the page
    * @param size        the size
@@ -207,15 +207,15 @@ public interface TopicControllerV1 {
    * @param authorEmail the author email
    * @return the page
    */
-  @Operation(summary = "All topics found by Author")
+  @Operation(summary = "All stories found by Author")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Topics found by author",
+      @ApiResponse(responseCode = "200", description = "Stories found by author",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-              schema = @Schema(implementation = PageTopicSchema.class))),
-      @ApiResponse(responseCode = "204", description = "No topics found by author",
+              schema = @Schema(implementation = PageStorySchema.class))),
+      @ApiResponse(responseCode = "204", description = "No stories found by author",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
       @ApiResponse(responseCode = "401",
-          description = "You are not authorized to access the topics",
+          description = "You are not authorized to access the stories",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -231,7 +231,7 @@ public interface TopicControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "403",
-          description = "Access to the topics you were trying to reach is prohibited",
+          description = "Access to the stories you were trying to reach is prohibited",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -246,14 +246,14 @@ public interface TopicControllerV1 {
                   )
               },
               schema = @Schema(implementation = ExceptionMessage.class)))})
-  Page<TopicResponse> findAllTopicsByAuthor(
+  Page<StoryResponse> findAllStoriesByAuthor(
       @Parameter(name = "page", description = "page number") Integer page,
       @Parameter(name = "size", description = "element's number in page") Integer size,
       @Parameter(name = "direction", description = "order direction") String direction,
-      @Parameter(name = "author-email", description = "topic owner email") String authorEmail);
+      @Parameter(name = "author-email", description = "story owner email") String authorEmail);
 
   /**
-   * Find all topics by title containing page.
+   * Find all stories by title containing page.
    *
    * @param page      the page
    * @param size      the size
@@ -261,15 +261,15 @@ public interface TopicControllerV1 {
    * @param title     the title
    * @return the page
    */
-  @Operation(summary = "All topics found by Title Containing")
+  @Operation(summary = "All stories found by Title Containing")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Topics found by Title Containing",
+      @ApiResponse(responseCode = "200", description = "Stories found by Title Containing",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-              schema = @Schema(implementation = PageTopicSchema.class))),
-      @ApiResponse(responseCode = "204", description = "No topics found by Title Containing",
+              schema = @Schema(implementation = PageStorySchema.class))),
+      @ApiResponse(responseCode = "204", description = "No stories found by Title Containing",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
       @ApiResponse(responseCode = "401",
-          description = "You are not authorized to access the topics",
+          description = "You are not authorized to access the stories",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -285,7 +285,7 @@ public interface TopicControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "403",
-          description = "Access to the topics you were trying to reach is prohibited",
+          description = "Access to the stories you were trying to reach is prohibited",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -300,14 +300,14 @@ public interface TopicControllerV1 {
                   )
               },
               schema = @Schema(implementation = ExceptionMessage.class)))})
-  Page<TopicResponse> findAllTopicsByTitleContaining(
+  Page<StoryResponse> findAllStoriesByTitleContaining(
       @Parameter(name = "page", description = "page number") Integer page,
       @Parameter(name = "size", description = "element's number in page") Integer size,
       @Parameter(name = "direction", description = "order direction") String direction,
-      @Parameter(name = "title", description = "topics title") String title);
+      @Parameter(name = "title", description = "stories title") String title);
 
   /**
-   * Find all topics sorted by field page.
+   * Find all stories sorted by field page.
    *
    * @param page      the page
    * @param size      the size
@@ -315,15 +315,15 @@ public interface TopicControllerV1 {
    * @param field     the field
    * @return the page
    */
-  @Operation(summary = "All topic found by sorted by field")
+  @Operation(summary = "All story found by sorted by field")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Topic has been found",
+      @ApiResponse(responseCode = "200", description = "Story has been found",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-              schema = @Schema(implementation = TopicResponse.class))),
-      @ApiResponse(responseCode = "204", description = "No topic found",
+              schema = @Schema(implementation = StoryResponse.class))),
+      @ApiResponse(responseCode = "204", description = "No story found",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
       @ApiResponse(responseCode = "401",
-          description = "You are not authorized to access the topic",
+          description = "You are not authorized to access the story",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -338,7 +338,7 @@ public interface TopicControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "403",
-          description = "Access to the topic you were trying to reach is prohibited",
+          description = "Access to the story you were trying to reach is prohibited",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -368,26 +368,26 @@ public interface TopicControllerV1 {
                   )
               },
               schema = @Schema(implementation = ExceptionMessage.class)))})
-  Page<TopicResponse> findAllTopicsSortedByField(
+  Page<StoryResponse> findAllStoriesSortedByField(
       @Parameter(name = "page", description = "page number") Integer page,
       @Parameter(name = "size", description = "element's number in page") Integer size,
       @Parameter(name = "direction", description = "order direction") String direction,
-      @Parameter(name = "field", description = "topics field") String field);
+      @Parameter(name = "field", description = "stories field") String field);
 
   /**
-   * Find last added topic response.
+   * Find last added story response.
    *
-   * @return the topic response
+   * @return the story response
    */
-  @Operation(summary = "Last topic added")
+  @Operation(summary = "Last story added")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Last topic added",
+      @ApiResponse(responseCode = "200", description = "Last story added",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-              schema = @Schema(implementation = PageTopicSchema.class))),
-      @ApiResponse(responseCode = "204", description = "No last topic found",
+              schema = @Schema(implementation = PageStorySchema.class))),
+      @ApiResponse(responseCode = "204", description = "No last story found",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
       @ApiResponse(responseCode = "401",
-          description = "You are not authorized to access the topic",
+          description = "You are not authorized to access the story",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -403,7 +403,7 @@ public interface TopicControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "403",
-          description = "Access to the topic you were trying to reach is prohibited",
+          description = "Access to the story you were trying to reach is prohibited",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -418,23 +418,23 @@ public interface TopicControllerV1 {
                   )
               },
               schema = @Schema(implementation = ExceptionMessage.class)))})
-  TopicResponse findLastAddedTopic();
+  StoryResponse findLastAddedStory();
 
   /**
-   * Create topic response entity.
+   * Create story response entity.
    *
-   * @param topicRequest the topic request
+   * @param storyRequest the story request
    * @param builder      the builder
    * @return the response entity
    */
-  @Operation(summary = "Topic creation")
+  @Operation(summary = "Story creation")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "201", description = "Topic has been created",
+      @ApiResponse(responseCode = "201", description = "Story has been created",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-              schema = @Schema(implementation = TopicResponse.class))),
-      @ApiResponse(responseCode = "204", description = "No topic found",
+              schema = @Schema(implementation = StoryResponse.class))),
+      @ApiResponse(responseCode = "204", description = "No story found",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
-      @ApiResponse(responseCode = "400", description = "Topic has validation errors",
+      @ApiResponse(responseCode = "400", description = "Story has validation errors",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -451,7 +451,7 @@ public interface TopicControllerV1 {
 
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "401",
-          description = "You are not authorized to access the creation of a topic",
+          description = "You are not authorized to access the creation of a story",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -466,7 +466,7 @@ public interface TopicControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "403",
-          description = "Access to the creation of a topic you are trying to"
+          description = "Access to the creation of a story you are trying to"
               + " reach is prohibited",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
@@ -482,7 +482,7 @@ public interface TopicControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "405",
-          description = "The topic cannot be created because the person is inactive",
+          description = "The story cannot be created because the person is inactive",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -498,7 +498,7 @@ public interface TopicControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "409",
-          description = "Conflict to insert a new topic",
+          description = "Conflict to insert a new story",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -513,29 +513,29 @@ public interface TopicControllerV1 {
                   )
               },
               schema = @Schema(implementation = ExceptionMessage.class)))})
-  @RequestBody(description = "Topic to add",
+  @RequestBody(description = "Story to add",
       required = true,
       content = @Content(
-          schema = @Schema(implementation = TopicRequest.class)))
-  ResponseEntity<TopicResponse> createTopic(Principal principal,
-                                            TopicRequest topicRequest,
+          schema = @Schema(implementation = StoryRequest.class)))
+  ResponseEntity<StoryResponse> createStory(Principal principal,
+                                            StoryRequest storyRequest,
                                             UriComponentsBuilder builder);
 
 
   /**
-   * Update topic by uuid topic response.
+   * Update story by uuid story response.
    *
-   * @param topicUpdateRequest the topic update request
-   * @param uuidTopic          the uuid topic
-   * @return the topic response
+   * @param storyUpdateRequest the story update request
+   * @param uuidStory          the uuid story
+   * @return the story response
    * @throws Exception the exception
    */
-  @Operation(summary = "Topic update by uuid")
+  @Operation(summary = "Story update by uuid")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Topic has been updated",
+      @ApiResponse(responseCode = "200", description = "Story has been updated",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-              schema = @Schema(implementation = TopicResponse.class))),
-      @ApiResponse(responseCode = "400", description = "Topic has validation errors",
+              schema = @Schema(implementation = StoryResponse.class))),
+      @ApiResponse(responseCode = "400", description = "Story has validation errors",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -551,7 +551,7 @@ public interface TopicControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "401",
-          description = "You are not authorized to access the update of a topic",
+          description = "You are not authorized to access the update of a story",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -566,7 +566,7 @@ public interface TopicControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "403",
-          description = "Access to the update of a topic you are trying to"
+          description = "Access to the update of a story you are trying to"
               + " reach is prohibited",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
@@ -598,7 +598,7 @@ public interface TopicControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "405",
-          description = "The topic cannot be updated because the person is inactive",
+          description = "The story cannot be updated because the person is inactive",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -614,7 +614,7 @@ public interface TopicControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "409",
-          description = "Conflict when update a topic",
+          description = "Conflict when update a story",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -629,29 +629,28 @@ public interface TopicControllerV1 {
                   )
               },
               schema = @Schema(implementation = ExceptionMessage.class)))})
-  @RequestBody(description = "Topic info to update",
+  @RequestBody(description = "Story info to update",
       required = true,
       content = @Content(
-          schema = @Schema(implementation = TopicUpdateRequest.class)))
-
-  TopicResponse updateTopicByUuid(Principal principal,
-                                  TopicUpdateRequest topicUpdateRequest,
-                                  @Parameter(name = "uuid", description = "Topic uuid",
+          schema = @Schema(implementation = StoryUpdateRequest.class)))
+  StoryResponse updateStoryByUuid(Principal principal,
+                                  StoryUpdateRequest storyUpdateRequest,
+                                  @Parameter(name = "uuid", description = "Story uuid",
                                       example = "081081d1-1777-4b59-8b4b-e9ab26186006")
-                                  UUID uuidTopic) throws Exception;
+                                  UUID uuidStory) throws Exception;
 
   /**
-   * Status topic by uuid.
+   * Status story by uuid.
    *
    * @param status      the status
    * @param commentUuid the comment uuid
    */
-  @Operation(summary = "Change Status topic by uuid")
+  @Operation(summary = "Change Status story by uuid")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Topic has been disabled/activated",
+      @ApiResponse(responseCode = "200", description = "Story has been disabled/activated",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-              schema = @Schema(implementation = TopicResponse.class))),
-      @ApiResponse(responseCode = "400", description = "Topic has validation errors",
+              schema = @Schema(implementation = StoryResponse.class))),
+      @ApiResponse(responseCode = "400", description = "Story has validation errors",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -667,7 +666,7 @@ public interface TopicControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "401",
-          description = "You are not authorized to access to the status of topic",
+          description = "You are not authorized to access to the status of story",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -713,25 +712,25 @@ public interface TopicControllerV1 {
                   )
               },
               schema = @Schema(implementation = ExceptionMessage.class)))})
-  @RequestBody(description = "Topic status",
+  @RequestBody(description = "Story status",
       required = true,
       content = @Content(
           schema = @Schema(implementation = StatusRequest.class)))
-  void statusTopicByUuid(Principal principal, StatusRequest status,
-                         @Parameter(name = "uuid", description = "Topic uuid",
+  void statusStoryByUuid(Principal principal, StatusRequest status,
+                         @Parameter(name = "uuid", description = "Story uuid",
                              example = "08fba211-60ca-45fc-b809-86bc2ad81dca")
                          @PathVariable("uuid") UUID commentUuid);
 
   /**
-   * Delete topic by uuid.
+   * Delete story by uuid.
    *
    * @param uuid the uuid
    */
-  @Operation(summary = "Topic delete by uuid")
+  @Operation(summary = "Story delete by uuid")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "204", description = "Topic has been deleted"),
+      @ApiResponse(responseCode = "204", description = "Story has been deleted"),
       @ApiResponse(responseCode = "401",
-          description = "You are not authorized to access the delete of a topic",
+          description = "You are not authorized to access the delete of a story",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -746,7 +745,7 @@ public interface TopicControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "403",
-          description = "Access to the delete of a topic you are trying to"
+          description = "Access to the delete of a story you are trying to"
               + " reach is prohibited",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
@@ -777,6 +776,6 @@ public interface TopicControllerV1 {
                   )
               },
               schema = @Schema(implementation = ExceptionMessage.class)))})
-  void deleteTopicByUuid(@Parameter(name = "uuid", description = "Topic uuid",
+  void deleteStoryByUuid(@Parameter(name = "uuid", description = "Story uuid",
       example = "d8317c61-1ca9-4a3d-9501-ec70e74e50e6") @PathVariable("uuid") UUID uuid);
 }

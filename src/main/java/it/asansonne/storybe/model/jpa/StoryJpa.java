@@ -20,18 +20,18 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * The type Topic.
+ * The type Story.
  */
 @Builder
 @Entity
-@Table(name = "topic")
+@Table(name = "story")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode
 @ToString
-public class Topic implements Models {
+public class StoryJpa implements Models {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
@@ -44,11 +44,8 @@ public class Topic implements Models {
   @Column(name = "title", nullable = false, unique = true)
   private String title;
 
-  @Column(name = "description_problem", columnDefinition = "TEXT", nullable = false)
-  private String problem;
-
-  @Column(name = "description_solution", columnDefinition = "TEXT")
-  private String solution;
+  @Column(name = "description", columnDefinition = "TEXT", nullable = false)
+  private String description;
 
   @Column(name = "date_creation", columnDefinition = "BIGINT", nullable = false)
   private Long creationDate;
@@ -59,8 +56,8 @@ public class Topic implements Models {
   @Column(name = "is_active", nullable = false)
   private Boolean isActive;
 
-  @Column(name = "is_open", nullable = false)
-  private Boolean isOpen;
+  @Column(name = "is_completed", nullable = false)
+  private Boolean isCompleted;
 
   @ManyToOne
   @JoinColumn(name = "person_id", nullable = false)

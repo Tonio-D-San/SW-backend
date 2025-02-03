@@ -1,6 +1,5 @@
 package it.asansonne.storybe.configuration.database;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 
@@ -9,6 +8,5 @@ import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
  */
 @Configuration
 @EnableNeo4jRepositories(basePackages = "it.asansonne.storybe.ccsr.repository.neo4j")
-@EntityScan(basePackages = "it.asansonne.storybe.model.neo4j")
 public class Neo4jConfig {
 }

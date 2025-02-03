@@ -13,8 +13,8 @@ public interface MessageConstant {
   String GROUP_EMPTY = "Group list is empty";
   String GROUP_NOT_FOUND = "No group found";
   String NOT_ALLOWED = "Method not allowed";
-  String TOPIC_NOT_FOUND = "No topic found";
-  String TOPIC_EMPTY = "Topic list is empty";
-  String TOPIC_ACTIVE_EMPTY = "Topic active list is empty";
-  String TOPIC_INACTIVE_EMPTY = "Topic active list is empty";
+  String STORY_NOT_FOUND = "No story found";
+  String STORY_EMPTY = "Story list is empty";
+  String STORY_ACTIVE_EMPTY = "Story active list is empty";
+  String STORY_INACTIVE_EMPTY = "Story active list is empty";
 }

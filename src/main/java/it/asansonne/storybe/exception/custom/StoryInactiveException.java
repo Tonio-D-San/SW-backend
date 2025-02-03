@@ -3,13 +3,13 @@ package it.asansonne.storybe.exception.custom;
 /**
  * The type Inactive person exception.
  */
-public class TopicInactiveException extends RuntimeException {
+public class StoryInactiveException extends RuntimeException {
 
   /**
    * Instantiates a new Inactive person exception.
    */
   @SuppressWarnings("unused")
-  public TopicInactiveException() {
+  public StoryInactiveException() {
     super();
   }
 
@@ -18,7 +18,7 @@ public class TopicInactiveException extends RuntimeException {
    *
    * @param message the message
    */
-  public TopicInactiveException(String message) {
+  public StoryInactiveException(String message) {
     super(message);
   }
 }

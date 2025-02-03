@@ -4,7 +4,7 @@ import it.asansonne.storybe.exception.ExceptionMessage;
 import it.asansonne.storybe.exception.custom.InactivePersonException;
 import it.asansonne.storybe.exception.custom.NotFoundException;
 import it.asansonne.storybe.exception.custom.ParentCreationDateException;
-import it.asansonne.storybe.exception.custom.TopicInactiveException;
+import it.asansonne.storybe.exception.custom.StoryInactiveException;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
@@ -72,7 +72,7 @@ final class ApplicationExceptionHandler {
   }
 
   @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-  @ExceptionHandler({InactivePersonException.class, TopicInactiveException.class})
+  @ExceptionHandler({InactivePersonException.class, StoryInactiveException.class})
   private ExceptionMessage handleMethodNotAllowedException(Exception ex) {
     return new ExceptionMessage(HttpStatus.METHOD_NOT_ALLOWED, ex.getMessage());
   }

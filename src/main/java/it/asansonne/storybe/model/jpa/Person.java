@@ -70,7 +70,7 @@ public class Person implements Models {
 
   @JsonIgnore
   @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-  private List<Topic> topic;
+  private List<StoryJpa> story;
 //
 //  @JsonIgnore
 //  @OneToMany(targetEntity = Comment.class, mappedBy = "author", fetch = FetchType.LAZY)
