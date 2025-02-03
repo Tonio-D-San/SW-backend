@@ -1,7 +1,7 @@
 package it.asansonne.storybe.exception.handler;
 
 import it.asansonne.storybe.exception.ExceptionMessage;
-import it.asansonne.storybe.exception.custom.InactivePersonException;
+import it.asansonne.storybe.exception.custom.InactiveMasterException;
 import it.asansonne.storybe.exception.custom.NotFoundException;
 import it.asansonne.storybe.exception.custom.ParentCreationDateException;
 import it.asansonne.storybe.exception.custom.StoryInactiveException;
@@ -72,7 +72,7 @@ final class ApplicationExceptionHandler {
   }
 
   @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-  @ExceptionHandler({InactivePersonException.class, StoryInactiveException.class})
+  @ExceptionHandler({InactiveMasterException.class, StoryInactiveException.class})
   private ExceptionMessage handleMethodNotAllowedException(Exception ex) {
     return new ExceptionMessage(HttpStatus.METHOD_NOT_ALLOWED, ex.getMessage());
   }

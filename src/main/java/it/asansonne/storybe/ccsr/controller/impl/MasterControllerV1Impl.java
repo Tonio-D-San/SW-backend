@@ -5,13 +5,13 @@ import static it.asansonne.storybe.constant.SharedConstant.ADMIN_USER_ROLES;
 import static it.asansonne.storybe.constant.SharedConstant.USER_ROLES;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import it.asansonne.storybe.ccsr.component.PersonComponent;
-import it.asansonne.storybe.ccsr.controller.PersonControllerV1;
-import it.asansonne.storybe.dto.request.PersonGroupRequest;
-import it.asansonne.storybe.dto.request.PersonRequest;
-import it.asansonne.storybe.dto.request.PersonUpdateRequest;
+import it.asansonne.storybe.ccsr.component.MasterComponent;
+import it.asansonne.storybe.ccsr.controller.MasterControllerV1;
+import it.asansonne.storybe.dto.request.MasterGroupRequest;
+import it.asansonne.storybe.dto.request.MasterRequest;
+import it.asansonne.storybe.dto.request.MasterUpdateRequest;
 import it.asansonne.storybe.dto.request.StatusRequest;
-import it.asansonne.storybe.dto.response.PersonResponse;
+import it.asansonne.storybe.dto.response.MasterResponse;
 import jakarta.validation.Valid;
 import java.security.Principal;
 import java.util.UUID;
@@ -35,69 +35,69 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
- * The type Person controller v1.
+ * The type Master controller v1.
  */
 @RestController
-@RequestMapping("api/v1/persons")
+@RequestMapping("api/v1/masters")
 @AllArgsConstructor
-@Tag(name = "PersonController V1")
+@Tag(name = "MasterController V1")
 @PreAuthorize(ADMIN_ROLES)
-public class PersonControllerV1Impl implements PersonControllerV1 {
-  private final PersonComponent personComponent;
+public class MasterControllerV1Impl implements MasterControllerV1 {
+  private final MasterComponent masterComponent;
 
   @Override
   @GetMapping(value = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
-  public PersonResponse findPersonByUuid(@PathVariable("uuid") UUID uuid) {
-    return personComponent.findPersonByUuid(uuid);
+  public MasterResponse findMasterByUuid(@PathVariable("uuid") UUID uuid) {
+    return masterComponent.findMasterByUuid(uuid);
   }
 
   @Override
   @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
-  public Page<PersonResponse> findAllPersons(
+  public Page<MasterResponse> findAllMasters(
       @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
       @RequestParam(value = "size", required = false, defaultValue = "5") Integer size,
       @RequestParam(value = "direction", required = false, defaultValue = "asc") String direction) {
     PageRequest pageRequest = PageRequest.of(page, size,
         Sort.by(Sort.Direction.fromString(direction), SURNAME));
-    return personComponent.findAllPersons(pageRequest);
+    return masterComponent.findAllMasters(pageRequest);
   }
 
   @Override
   @GetMapping(value = "/active", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
   @PreAuthorize(ADMIN_USER_ROLES)
-  public Page<PersonResponse> findActivePersons(
+  public Page<MasterResponse> findActiveMasters(
       @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
       @RequestParam(value = "size", required = false, defaultValue = "5") Integer size,
       @RequestParam(value = "direction", required = false, defaultValue = "asc") String direction) {
     PageRequest pageRequest = PageRequest.of(page, size,
         Sort.by(Sort.Direction.fromString(direction), SURNAME));
-    return personComponent.findActivePersons(pageRequest);
+    return masterComponent.findActiveMasters(pageRequest);
   }
 
   @Override
   @GetMapping(value = "/inactive", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
-  public Page<PersonResponse> findInactivePersons(
+  public Page<MasterResponse> findInactiveMasters(
       @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
       @RequestParam(value = "size", required = false, defaultValue = "5") Integer size,
       @RequestParam(value = "direction", required = false, defaultValue = "asc") String direction) {
     PageRequest pageRequest = PageRequest.of(page, size,
         Sort.by(Sort.Direction.fromString(direction), SURNAME));
-    return personComponent.findInactivePersons(pageRequest);
+    return masterComponent.findInactiveMasters(pageRequest);
   }
 
   @Override
   @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<PersonResponse> createPerson(
-      @Valid @RequestBody PersonRequest personRequest,
+  public ResponseEntity<MasterResponse> createMaster(
+      @Valid @RequestBody MasterRequest masterRequest,
       UriComponentsBuilder builder) {
-    PersonResponse response =
-        personComponent.createPerson(personRequest);
+    MasterResponse response =
+        masterComponent.createMaster(masterRequest);
     return ResponseEntity
         .created(builder
             .path("api/v2/admin/")
@@ -111,28 +111,28 @@ public class PersonControllerV1Impl implements PersonControllerV1 {
       consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
   @PreAuthorize(USER_ROLES)
-  public PersonResponse updatePersonByUuid(Principal principal,
-                                           @Valid @RequestBody PersonUpdateRequest personRequest,
+  public MasterResponse updateMasterByUuid(Principal principal,
+                                           @Valid @RequestBody MasterUpdateRequest masterRequest,
                                            @PathVariable("uuid") UUID uuid) {
-    return personComponent.updatePersonByUuid(principal, personRequest, uuid);
+    return masterComponent.updateMasterByUuid(principal, masterRequest, uuid);
   }
 
   @Override
   @PatchMapping(value = "/groups/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
-  public PersonResponse updateGroupByPersonUuid(
-      @Valid @RequestBody PersonGroupRequest personRequest,
+  public MasterResponse updateGroupByMasterUuid(
+      @Valid @RequestBody MasterGroupRequest masterRequest,
       @PathVariable("uuid") UUID uuid) {
-    return personComponent.updateGroupByPersonUuid(personRequest, uuid);
+    return masterComponent.updateGroupByMasterUuid(masterRequest, uuid);
   }
 
   @Override
   @PatchMapping(value = "/status/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
-  public void updateStatusPersonByUuid(@PathVariable("uuid") UUID uuid,
+  public void updateStatusMasterByUuid(@PathVariable("uuid") UUID uuid,
                                        @RequestBody StatusRequest status) {
-    personComponent.updateStatusPersonByUuid(uuid, status);
+    masterComponent.updateStatusMasterByUuid(uuid, status);
   }
 }

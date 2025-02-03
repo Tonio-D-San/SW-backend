@@ -17,7 +17,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * The type Person request.
+ * The type Master request.
  */
 @Builder
 @Getter
@@ -26,60 +26,60 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Schema(description = "Representation of the Person Request DTO")
-public class PersonRequest implements Dto {
-  @NotBlank(message = "Person username must not be null or empty")
+@Schema(description = "Representation of the Master Request DTO")
+public class MasterRequest implements Dto {
+  @NotBlank(message = "Master username must not be null or empty")
   @Schema(
-      description = "Person username",
+      description = "Master username",
       name = "username",
       type = "String",
       example = "mrossi")
   private String username;
 
-  @NotBlank(message = "Person password must not be null or empty")
+  @NotBlank(message = "Master password must not be null or empty")
   @Size(
       min = 8,
       max = 32,
-      message = "The person password must be between 8 and 32 characters")
+      message = "The master password must be between 8 and 32 characters")
   @Schema(
-      description = "Person password",
+      description = "Master password",
       name = "password",
       type = "String",
       example = "password")
   private String password;
 
-  @NotBlank(message = "Person email must not be null or empty")
-  @Email(message = "Invalid person email format")
+  @NotBlank(message = "Master email must not be null or empty")
+  @Email(message = "Invalid master email format")
   @Size(
       min = 10,
       max = 100,
-      message = "The person email must be between 10 and 100 characters")
+      message = "The master email must be between 10 and 100 characters")
   @Schema(
-      description = "Person email",
+      description = "Master email",
       name = "email",
       type = "String",
       example = "example@cybsec.it")
   private String email;
 
-  @NotBlank(message = "Person surname must not be null or empty")
+  @NotBlank(message = "Master surname must not be null or empty")
   @Schema(
-      description = "Person surname",
+      description = "Master surname",
       name = "lastname",
       type = "String",
       example = "Rossi")
   private String lastname;
 
-  @NotBlank(message = "Person name must not be null or empty")
+  @NotBlank(message = "Master name must not be null or empty")
   @Schema(
-      description = "Person name",
+      description = "Master name",
       name = "firstname",
       type = "String",
       example = "Mario")
   private String firstname;
 
-  @NotNull(message = "Person status must not be null or empty")
+  @NotNull(message = "Master status must not be null or empty")
   @Schema(
-      description = "Person status",
+      description = "Master status",
       name = "isActive",
       type = "Boolean",
       example = "true")
@@ -87,13 +87,13 @@ public class PersonRequest implements Dto {
 
   @JsonProperty("groups")
   @Schema(
-      description = "Person status",
+      description = "Master status",
       name = "groups",
       type = "List<GroupRequest>")
   private List<GroupRequest> groups;
 
   @Schema(
-      description = "Person biography",
+      description = "Master biography",
       name = "biography",
       type = "String",
       example = "This is a biography")
@@ -101,7 +101,7 @@ public class PersonRequest implements Dto {
 
   @Schema(
       hidden = true,
-      description = "Person profile image",
+      description = "Master profile image",
       name = "profileImage",
       type = "byte[]")
   private byte[] profileImage;

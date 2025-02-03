@@ -60,9 +60,9 @@ public class StoryResponse implements Dto {
 
   @Schema(
       description = "Story's author",
-      name = "personResponse",
-      type = "PersonResponse")
-  private PersonResponse personResponse;
+      name = "masterResponse",
+      type = "MasterResponse")
+  private MasterResponse masterResponse;
 
   @Schema(
       description = "Story status",

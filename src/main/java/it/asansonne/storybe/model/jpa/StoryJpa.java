@@ -60,6 +60,6 @@ public class StoryJpa implements Models {
   private Boolean isCompleted;
 
   @ManyToOne
-  @JoinColumn(name = "person_id", nullable = false)
-  private Person author;
+  @JoinColumn(name = "master_id", nullable = false)
+  private Master author;
 }

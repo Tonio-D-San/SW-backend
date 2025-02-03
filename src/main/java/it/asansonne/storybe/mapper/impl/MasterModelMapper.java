@@ -2,37 +2,37 @@ package it.asansonne.storybe.mapper.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.asansonne.storybe.dto.request.PersonRequest;
-import it.asansonne.storybe.dto.response.PersonResponse;
+import it.asansonne.storybe.dto.request.MasterRequest;
+import it.asansonne.storybe.dto.response.MasterResponse;
 import it.asansonne.storybe.mapper.RequestModelMapper;
 import it.asansonne.storybe.mapper.ResponseModelMapper;
-import it.asansonne.storybe.model.jpa.Person;
+import it.asansonne.storybe.model.jpa.Master;
 import java.util.List;
 import org.springframework.stereotype.Component;
 
 /**
- * The type Person mapper.
+ * The type Master mapper.
  */
 @Component
-public class PersonModelMapper implements RequestModelMapper<PersonRequest, Person>,
-    ResponseModelMapper<Person, PersonResponse> {
+public class MasterModelMapper implements RequestModelMapper<MasterRequest, Master>,
+    ResponseModelMapper<Master, MasterResponse> {
 
   @Override
-  public Person toModel(PersonRequest dto) {
+  public Master toModel(MasterRequest dto) {
     if (dto == null) {
       return null;
     }
-    return Person.builder()
+    return Master.builder()
         .biography(dto.getBiography())
         .build();
   }
 
   @Override
-  public PersonResponse toDto(Person model) {
+  public MasterResponse toDto(Master model) {
     if (model == null) {
       return null;
     }
-    return PersonResponse.builder()
+    return MasterResponse.builder()
         .id(model.getUuid())
         .email(model.getEmail())
         .firstName(model.getName())
@@ -43,11 +43,11 @@ public class PersonModelMapper implements RequestModelMapper<PersonRequest, Pers
   }
 
   @Override
-  public Person dtoToModelResponse(PersonResponse dto) {
+  public Master dtoToModelResponse(MasterResponse dto) {
     if (dto == null) {
       return null;
     }
-    return Person.builder()
+    return Master.builder()
         .uuid(dto.getId())
         .email(dto.getEmail())
         .name(dto.getFirstName())
@@ -63,9 +63,9 @@ public class PersonModelMapper implements RequestModelMapper<PersonRequest, Pers
    * @param json the json
    * @return the list
    */
-  public List<PersonResponse> jsonToDto(String json) {
+  public List<MasterResponse> jsonToDto(String json) {
     try {
-      return List.of(new ObjectMapper().readValue(json, PersonResponse[].class));
+      return List.of(new ObjectMapper().readValue(json, MasterResponse[].class));
     } catch (JsonProcessingException e) {
       throw new RuntimeException();
     }

@@ -42,7 +42,7 @@ public class StoryModelMapper implements RequestModelMapper<StoryRequest, StoryJ
         .isActive(model.getIsActive())
         .isCompleted(model.getIsCompleted())
         .build();
-    dto.setPersonResponse(new PersonModelMapper().toDto(model.getAuthor()));
+    dto.setMasterResponse(new MasterModelMapper().toDto(model.getAuthor()));
     return dto;
   }
 

@@ -2,7 +2,7 @@ package it.asansonne.storybe.util;
 
 import static it.asansonne.storybe.constant.SharedConstant.ADMIN;
 
-import it.asansonne.storybe.model.jpa.Person;
+import it.asansonne.storybe.model.jpa.Master;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -97,11 +97,11 @@ public class FileUtil {
   /**
    * Is admin boolean.
    *
-   * @param person the person
+   * @param master the master
    * @return the boolean
    */
-  public static boolean isAdmin(Person person) {
-    return person.getGroups()
+  public static boolean isAdmin(Master master) {
+    return master.getGroups()
         .stream()
         .anyMatch(group ->
             group.getName()

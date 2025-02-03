@@ -8,7 +8,7 @@ import it.asansonne.storybe.model.jpa.Group;
 import org.springframework.stereotype.Component;
 
 /**
- * The type Person mapper.
+ * The type Master mapper.
  */
 @Component
 public class GroupModelMapper implements RequestModelMapper<GroupRequest, Group>,

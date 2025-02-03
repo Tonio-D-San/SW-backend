@@ -54,5 +54,5 @@ public class Group implements Models {
 
   @JsonIgnore
   @ManyToMany(mappedBy = "groups", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-  private List<Person> persons;
+  private List<Master> masters;
 }

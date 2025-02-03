@@ -482,7 +482,7 @@ public interface StoryControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "405",
-          description = "The story cannot be created because the person is inactive",
+          description = "The story cannot be created because the master is inactive",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(
@@ -598,7 +598,7 @@ public interface StoryControllerV1 {
               },
               schema = @Schema(implementation = ExceptionMessage.class))),
       @ApiResponse(responseCode = "405",
-          description = "The story cannot be updated because the person is inactive",
+          description = "The story cannot be updated because the master is inactive",
           content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
               examples = {
                   @ExampleObject(

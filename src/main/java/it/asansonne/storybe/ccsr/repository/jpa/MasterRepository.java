@@ -1,6 +1,6 @@
 package it.asansonne.storybe.ccsr.repository.jpa;
 
-import it.asansonne.storybe.model.jpa.Person;
+import it.asansonne.storybe.model.jpa.Master;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
@@ -9,18 +9,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * The interface Person repository.
+ * The interface Master repository.
  */
 @Repository
-public interface PersonRepository extends JpaRepository<Person, Integer> {
+public interface MasterRepository extends JpaRepository<Master, Integer> {
 
   /**
-   * Find person by uuid optional.
+   * Find master by uuid optional.
    *
    * @param uuid the uuid
    * @return the optional
    */
-  Optional<Person> findPersonByUuid(UUID uuid);
+  Optional<Master> findMasterByUuid(UUID uuid);
 
   /**
    * Find by email optional.
@@ -28,7 +28,7 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
    * @param email the email
    * @return the optional
    */
-  Optional<Person> findByEmail(String email);
+  Optional<Master> findByEmail(String email);
 
   /**
    * Find all by is active true page.
@@ -36,7 +36,7 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
    * @param pageable the pageable
    * @return the page
    */
-  Page<Person> findAllByIsActiveTrue(Pageable pageable);
+  Page<Master> findAllByIsActiveTrue(Pageable pageable);
 
   /**
    * Find all by is active false page.
@@ -44,5 +44,5 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
    * @param pageable the pageable
    * @return the page
    */
-  Page<Person> findAllByIsActiveFalse(Pageable pageable);
+  Page<Master> findAllByIsActiveFalse(Pageable pageable);
 }

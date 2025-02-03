@@ -14,7 +14,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * The type Person response.
+ * The type Master response.
  */
 @Builder
 @Getter
@@ -23,39 +23,39 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Schema(description = "Representation of the Person Response DTO")
-public class PersonResponse implements Dto {
+@Schema(description = "Representation of the Master Response DTO")
+public class MasterResponse implements Dto {
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @Schema(
-      description = "Person uuid",
-      name = "personUuid",
+      description = "Master uuid",
+      name = "masterUuid",
       type = "UUID",
       example = "08fba211-60ca-45fc-b809-86bc2ad81dca")
   private UUID id;
 
   @Schema(
-      description = "Person email",
+      description = "Master email",
       name = "email",
       type = "String",
       example = "example@cybsec.it")
   private String email;
 
   @Schema(
-      description = "Person name",
+      description = "Master name",
       name = "name",
       type = "String",
       example = "Mario")
   private String firstName;
 
   @Schema(
-      description = "Person surname",
+      description = "Master surname",
       name = "surname",
       type = "String",
       example = "Rossi")
   private String lastName;
 
   @Schema(
-      description = "Person biography",
+      description = "Master biography",
       name = "biography",
       type = "String",
       example = "This is a biography")
@@ -68,7 +68,7 @@ public class PersonResponse implements Dto {
   private List<GroupResponse> groups;
 
   @Schema(
-      description = "Person active toggle",
+      description = "Master active toggle",
       name = "isActive",
       type = "String",
       example = "true")
@@ -76,7 +76,7 @@ public class PersonResponse implements Dto {
 
   @Schema(
       hidden = true,
-      description = "Person profile image",
+      description = "Master profile image",
       name = "profileImage",
       type = "byte[]")
   private byte[] profileImage;

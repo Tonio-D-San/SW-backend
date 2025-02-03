@@ -7,14 +7,14 @@ import static it.asansonne.storybe.constant.MessageConstant.PERSON_NOT_FOUND;
 import it.asansonne.storybe.ccsr.component.KeycloakComponent;
 import it.asansonne.storybe.ccsr.service.GroupService;
 import it.asansonne.storybe.dto.request.GroupRequest;
-import it.asansonne.storybe.dto.request.PersonRequest;
+import it.asansonne.storybe.dto.request.MasterRequest;
 import it.asansonne.storybe.dto.request.StatusRequest;
-import it.asansonne.storybe.dto.response.PersonResponse;
+import it.asansonne.storybe.dto.response.MasterResponse;
 import it.asansonne.storybe.exception.custom.NotFoundException;
 import it.asansonne.storybe.mapper.ResponseModelMapper;
-import it.asansonne.storybe.mapper.impl.PersonModelMapper;
+import it.asansonne.storybe.mapper.impl.MasterModelMapper;
 import it.asansonne.storybe.model.jpa.Group;
-import it.asansonne.storybe.model.jpa.Person;
+import it.asansonne.storybe.model.jpa.Master;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -38,8 +38,8 @@ import org.springframework.web.client.RestTemplate;
 @Component
 @RequiredArgsConstructor
 public class KeycloakComponentImpl implements KeycloakComponent {
-  private final PersonModelMapper personMapper;
-  private final ResponseModelMapper<Person, PersonResponse> responseModelMapper;
+  private final MasterModelMapper masterMapper;
+  private final ResponseModelMapper<Master, MasterResponse> responseModelMapper;
   private final GroupService groupService;
   @Value("${keycloak.host.user}")
   private String urlUser;
@@ -49,7 +49,7 @@ public class KeycloakComponentImpl implements KeycloakComponent {
    *
    * @param email of the user
    */
-  public Person readUser(String email) {
+  public Master readUser(String email) {
     if (SecurityContextHolder.getContext().getAuthentication()
         instanceof JwtAuthenticationToken jwtAuthToken) {
       ResponseEntity<String> response = new RestTemplate()
@@ -59,7 +59,7 @@ public class KeycloakComponentImpl implements KeycloakComponent {
         throw new NotFoundException(PERSON_NOT_FOUND);
       }
       return responseModelMapper.dtoToModelResponse(
-          personMapper.jsonToDto(response.getBody()).get(0)
+          masterMapper.jsonToDto(response.getBody()).get(0)
       );
     }
 
@@ -67,11 +67,11 @@ public class KeycloakComponentImpl implements KeycloakComponent {
   }
 
   /**
-   * Create user person keycloak response.
+   * Create user master keycloak response.
    *
-   * @param request of the person
+   * @param request of the master
    */
-  public void createUser(PersonRequest request) {
+  public void createUser(MasterRequest request) {
     if (SecurityContextHolder.getContext().getAuthentication()
         instanceof JwtAuthenticationToken jwtAuthToken) {
       new RestTemplate()
@@ -138,7 +138,7 @@ public class KeycloakComponentImpl implements KeycloakComponent {
     return headers;
   }
 
-  private String setPayload(PersonRequest request) {
+  private String setPayload(MasterRequest request) {
     if (request.getGroups() == null || request.getGroups().isEmpty()) {
       return "{"
           + "\"username\": \"" + request.getUsername() + "\","

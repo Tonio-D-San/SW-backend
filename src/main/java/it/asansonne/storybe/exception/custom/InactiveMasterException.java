@@ -3,13 +3,13 @@ package it.asansonne.storybe.exception.custom;
 /**
  * The type Inactive master exception.
  */
-public class StoryInactiveException extends RuntimeException {
+public class InactiveMasterException extends RuntimeException {
 
   /**
    * Instantiates a new Inactive master exception.
    */
   @SuppressWarnings("unused")
-  public StoryInactiveException() {
+  public InactiveMasterException() {
     super();
   }
 
@@ -18,7 +18,7 @@ public class StoryInactiveException extends RuntimeException {
    *
    * @param message the message
    */
-  public StoryInactiveException(String message) {
+  public InactiveMasterException(String message) {
     super(message);
   }
 }

@@ -6,7 +6,7 @@ import static it.asansonne.storybe.constant.MessageConstant.STORY_NOT_FOUND;
 import static it.asansonne.storybe.util.FileUtil.isAdmin;
 
 import it.asansonne.storybe.ccsr.component.StoryComponent;
-import it.asansonne.storybe.ccsr.service.PersonService;
+import it.asansonne.storybe.ccsr.service.MasterService;
 import it.asansonne.storybe.ccsr.service.StoryService;
 import it.asansonne.storybe.dto.request.StatusRequest;
 import it.asansonne.storybe.dto.request.StoryRequest;
@@ -15,7 +15,7 @@ import it.asansonne.storybe.dto.response.StoryResponse;
 import it.asansonne.storybe.exception.custom.NotFoundException;
 import it.asansonne.storybe.mapper.RequestModelMapper;
 import it.asansonne.storybe.mapper.ResponseModelMapper;
-import it.asansonne.storybe.model.jpa.Person;
+import it.asansonne.storybe.model.jpa.Master;
 import it.asansonne.storybe.model.jpa.StoryJpa;
 import jakarta.persistence.EntityNotFoundException;
 import java.security.Principal;
@@ -36,7 +36,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class StoryComponentImpl implements StoryComponent {
   private final StoryService storyService;
-  private final PersonService personService;
+  private final MasterService masterService;
   private final ResponseModelMapper<StoryJpa, StoryResponse> responseModelMapper;
   private final RequestModelMapper<StoryRequest, StoryJpa> requestModelMapper;
 
@@ -58,10 +58,10 @@ public class StoryComponentImpl implements StoryComponent {
   }
 
   @Override
-  public Page<StoryResponse> findAllStoriesByAuthor(Pageable pageable, String personEmail) {
-    Person person = personService.findPersonByEmail(personEmail)
+  public Page<StoryResponse> findAllStoriesByAuthor(Pageable pageable, String masterEmail) {
+    Master master = masterService.findMasterByEmail(masterEmail)
         .orElseThrow(() -> new EntityNotFoundException(PERSON_NOT_FOUND));
-    Page<StoryJpa> stories = storyService.findAllStoryByAuthor(person, pageable);
+    Page<StoryJpa> stories = storyService.findAllStoryByAuthor(master, pageable);
     return responseModelMapper.toDto(stories, pageable);
   }
 
@@ -86,7 +86,7 @@ public class StoryComponentImpl implements StoryComponent {
   @Override
   public StoryResponse createStory(Principal principal, StoryRequest storyRequest) {
     StoryJpa story = requestModelMapper.toModel(storyRequest);
-    story.setAuthor(findPerson(principal));
+    story.setAuthor(findMaster(principal));
     story.setUuid(UUID.randomUUID());
     long creationDate = Instant.now().toEpochMilli();
     story.setCreationDate(creationDate);
@@ -100,7 +100,7 @@ public class StoryComponentImpl implements StoryComponent {
                                          UUID uuidStory) {
     StoryJpa story = storyService.findStoryByUuid(uuidStory)
         .orElseThrow(() -> new NotFoundException(STORY_NOT_FOUND));
-    if (findPerson(principal).getUuid().equals(story.getAuthor().getUuid())) {
+    if (findMaster(principal).getUuid().equals(story.getAuthor().getUuid())) {
       story.setTitle(storyUpdateRequest.getTitle());
       story.setIsCompleted(storyUpdateRequest.getSolution() == null);
       story.setDescription(storyUpdateRequest.getProblem());
@@ -114,9 +114,9 @@ public class StoryComponentImpl implements StoryComponent {
   public void statusStoryByUuid(Principal principal, StatusRequest status, UUID storyUuid) {
     StoryJpa story = storyService.findStoryByUuid(storyUuid)
         .orElseThrow(() -> new NotFoundException(STORY_NOT_FOUND));
-    Person person = findPerson(principal);
-    if (isAdmin(person) || status.getIsActive().equals(false)
-        && (person.getUuid().equals(story.getAuthor().getUuid()))) {
+    Master master = findMaster(principal);
+    if (isAdmin(master) || status.getIsActive().equals(false)
+        && (master.getUuid().equals(story.getAuthor().getUuid()))) {
       storyService.statusStoryByUuid(status, storyUuid);
     } else {
       throw new AccessDeniedException(FORBIDDEN);
@@ -147,8 +147,8 @@ public class StoryComponentImpl implements StoryComponent {
     return PageRequest.of(page, size, sort);
   }
 
-  private Person findPerson(Principal principal) {
-    return personService.findPersonByUuid(
+  private Master findMaster(Principal principal) {
+    return masterService.findMasterByUuid(
             UUID.fromString(principal.getName().split("[,\\[\\]\\s]+")[1]))
         .orElseThrow(() -> new EntityNotFoundException(PERSON_NOT_FOUND));
   }

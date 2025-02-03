@@ -27,14 +27,14 @@ import lombok.ToString;
 
 @Builder
 @Entity
-@Table(name = "person")
+@Table(name = "master")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode
 @ToString
-public class Person implements Models {
+public class Master implements Models {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
@@ -63,8 +63,8 @@ public class Person implements Models {
   private byte[] profileImage;
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-  @JoinTable(name = "person_group",
-      joinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"),
+  @JoinTable(name = "master_group",
+      joinColumns = @JoinColumn(name = "master_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"))
   private List<Group> groups;
 

@@ -1,9 +1,9 @@
 package it.asansonne.storybe.ccsr.component;
 
-import it.asansonne.storybe.dto.request.PersonRequest;
+import it.asansonne.storybe.dto.request.MasterRequest;
 import it.asansonne.storybe.dto.request.StatusRequest;
 import it.asansonne.storybe.model.jpa.Group;
-import it.asansonne.storybe.model.jpa.Person;
+import it.asansonne.storybe.model.jpa.Master;
 import java.util.UUID;
 
 /**
@@ -12,19 +12,19 @@ import java.util.UUID;
 public interface KeycloakComponent {
 
   /**
-   * Read user person.
+   * Read user master.
    *
    * @param email the email
-   * @return the person
+   * @return the master
    */
-  Person readUser(String email);
+  Master readUser(String email);
 
   /**
    * Create user.
    *
    * @param request the request
    */
-  void createUser(PersonRequest request);
+  void createUser(MasterRequest request);
 
   /**
    * Update user.

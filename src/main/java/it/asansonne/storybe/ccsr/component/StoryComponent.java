@@ -42,10 +42,10 @@ public interface StoryComponent {
    * Find all storyJpas by author page.
    *
    * @param pageable    the pageable
-   * @param personEmail the person email
+   * @param masterEmail the master email
    * @return the page
    */
-  Page<StoryResponse> findAllStoriesByAuthor(Pageable pageable, String personEmail);
+  Page<StoryResponse> findAllStoriesByAuthor(Pageable pageable, String masterEmail);
 
   /**
    * Find storyJpas by title containing page.
