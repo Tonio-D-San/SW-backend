@@ -1,6 +1,6 @@
 package it.asansonne.storybe.ccsr.service;
 
-import it.asansonne.storybe.model.jpa.Group;
+import it.asansonne.storybe.model.jpa.GroupJpa;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -15,5 +15,5 @@ public interface GroupService {
    * @param uuid the uuid
    * @return the optional
    */
-  Optional<Group> findGroupByUuid(UUID uuid);
+  Optional<GroupJpa> findGroupByUuid(UUID uuid);
 }

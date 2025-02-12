@@ -15,7 +15,7 @@ import it.asansonne.storybe.dto.response.StoryResponse;
 import it.asansonne.storybe.exception.custom.NotFoundException;
 import it.asansonne.storybe.mapper.RequestModelMapper;
 import it.asansonne.storybe.mapper.ResponseModelMapper;
-import it.asansonne.storybe.model.jpa.Master;
+import it.asansonne.storybe.model.jpa.MasterJpa;
 import it.asansonne.storybe.model.jpa.StoryJpa;
 import jakarta.persistence.EntityNotFoundException;
 import java.security.Principal;
@@ -59,7 +59,7 @@ public class StoryComponentImpl implements StoryComponent {
 
   @Override
   public Page<StoryResponse> findAllStoriesByAuthor(Pageable pageable, String masterEmail) {
-    Master master = masterService.findMasterByEmail(masterEmail)
+    MasterJpa master = masterService.findMasterByEmail(masterEmail)
         .orElseThrow(() -> new EntityNotFoundException(PERSON_NOT_FOUND));
     Page<StoryJpa> stories = storyService.findAllStoryByAuthor(master, pageable);
     return responseModelMapper.toDto(stories, pageable);
@@ -114,7 +114,7 @@ public class StoryComponentImpl implements StoryComponent {
   public void statusStoryByUuid(Principal principal, StatusRequest status, UUID storyUuid) {
     StoryJpa story = storyService.findStoryByUuid(storyUuid)
         .orElseThrow(() -> new NotFoundException(STORY_NOT_FOUND));
-    Master master = findMaster(principal);
+    MasterJpa master = findMaster(principal);
     if (isAdmin(master) || status.getIsActive().equals(false)
         && (master.getUuid().equals(story.getAuthor().getUuid()))) {
       storyService.statusStoryByUuid(status, storyUuid);
@@ -147,7 +147,7 @@ public class StoryComponentImpl implements StoryComponent {
     return PageRequest.of(page, size, sort);
   }
 
-  private Master findMaster(Principal principal) {
+  private MasterJpa findMaster(Principal principal) {
     return masterService.findMasterByUuid(
             UUID.fromString(principal.getName().split("[,\\[\\]\\s]+")[1]))
         .orElseThrow(() -> new EntityNotFoundException(PERSON_NOT_FOUND));

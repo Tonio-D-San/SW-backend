@@ -6,7 +6,7 @@ import static it.asansonne.storybe.constant.MessageConstant.PERSON_INACTIVE_EMPT
 
 import it.asansonne.storybe.ccsr.repository.jpa.MasterRepository;
 import it.asansonne.storybe.ccsr.service.MasterService;
-import it.asansonne.storybe.model.jpa.Master;
+import it.asansonne.storybe.model.jpa.MasterJpa;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,18 +24,18 @@ public final class MasterServiceImpl implements MasterService {
   private final MasterRepository masterRepository;
 
   @Override
-  public Optional<Master> findMasterByEmail(String email) {
+  public Optional<MasterJpa> findMasterByEmail(String email) {
     return masterRepository.findByEmail(email);
   }
 
   @Override
-  public Optional<Master> findMasterByUuid(UUID masterUuid) {
+  public Optional<MasterJpa> findMasterByUuid(UUID masterUuid) {
     return masterRepository.findMasterByUuid(masterUuid);
   }
 
   @Override
-  public Page<Master> findAllMasters(Pageable pageable) {
-    Page<Master> masters = masterRepository.findAll(pageable);
+  public Page<MasterJpa> findAllMasters(Pageable pageable) {
+    Page<MasterJpa> masters = masterRepository.findAll(pageable);
     if (masters.isEmpty()) {
       throw new EntityNotFoundException(PERSON_EMPTY);
     }
@@ -43,8 +43,8 @@ public final class MasterServiceImpl implements MasterService {
   }
 
   @Override
-  public Page<Master> findActiveMasters(Pageable pageable) {
-    Page<Master> masters = masterRepository.findAllByIsActiveTrue(pageable);
+  public Page<MasterJpa> findActiveMasters(Pageable pageable) {
+    Page<MasterJpa> masters = masterRepository.findAllByIsActiveTrue(pageable);
     if (masters.isEmpty()) {
       throw new EntityNotFoundException(PERSON_ACTIVE_EMPTY);
     }
@@ -52,8 +52,8 @@ public final class MasterServiceImpl implements MasterService {
   }
 
   @Override
-  public Page<Master> findInactiveMasters(Pageable pageable) {
-    Page<Master> masters = masterRepository.findAllByIsActiveFalse(pageable);
+  public Page<MasterJpa> findInactiveMasters(Pageable pageable) {
+    Page<MasterJpa> masters = masterRepository.findAllByIsActiveFalse(pageable);
     if (masters.isEmpty()) {
       throw new EntityNotFoundException(PERSON_INACTIVE_EMPTY);
     }
@@ -61,7 +61,7 @@ public final class MasterServiceImpl implements MasterService {
   }
 
   @Override
-  public Master updateMaster(Master master) {
+  public MasterJpa updateMaster(MasterJpa master) {
     return masterRepository.save(master);
   }
 }

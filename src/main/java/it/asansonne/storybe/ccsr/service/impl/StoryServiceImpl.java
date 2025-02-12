@@ -9,7 +9,7 @@ import it.asansonne.storybe.ccsr.repository.jpa.StoryRepository;
 import it.asansonne.storybe.ccsr.service.StoryService;
 import it.asansonne.storybe.dto.request.StatusRequest;
 import it.asansonne.storybe.exception.custom.NotFoundException;
-import it.asansonne.storybe.model.jpa.Master;
+import it.asansonne.storybe.model.jpa.MasterJpa;
 import it.asansonne.storybe.model.jpa.StoryJpa;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
@@ -55,7 +55,7 @@ public final class StoryServiceImpl implements StoryService {
   }
 
   @Override
-  public Page<StoryJpa> findAllStoryByAuthor(Master author, Pageable pageable) {
+  public Page<StoryJpa> findAllStoryByAuthor(MasterJpa author, Pageable pageable) {
     Page<StoryJpa> stories = storyRepository.findAllStoriesByAuthor(author, pageable);
     if (stories.isEmpty()) {
       throw new EntityNotFoundException(STORY_EMPTY);

@@ -1,7 +1,7 @@
 package it.asansonne.storybe.ccsr.service;
 
 import it.asansonne.storybe.dto.request.StatusRequest;
-import it.asansonne.storybe.model.jpa.Master;
+import it.asansonne.storybe.model.jpa.MasterJpa;
 import it.asansonne.storybe.model.jpa.StoryJpa;
 import java.util.Optional;
 import java.util.UUID;
@@ -44,7 +44,7 @@ public interface StoryService {
    * @param pageable the pageable
    * @return the page
    */
-  Page<StoryJpa> findAllStoryByAuthor(Master author, Pageable pageable);
+  Page<StoryJpa> findAllStoryByAuthor(MasterJpa author, Pageable pageable);
 
   /**
    * Find stories by title containing page.
@@ -65,18 +65,18 @@ public interface StoryService {
   /**
    * Create story.
    *
-   * @param Story the story
+   * @param story the story
    * @return the story
    */
-  StoryJpa createStory(StoryJpa Story);
+  StoryJpa createStory(StoryJpa story);
 
   /**
    * Update story.
    *
-   * @param Story the story
+   * @param story the story
    * @return the story
    */
-  StoryJpa updateStory(StoryJpa Story);
+  StoryJpa updateStory(StoryJpa story);
 
   /**
    * Status story by uuid.

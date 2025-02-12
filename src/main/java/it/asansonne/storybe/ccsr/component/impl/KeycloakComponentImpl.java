@@ -13,8 +13,8 @@ import it.asansonne.storybe.dto.response.MasterResponse;
 import it.asansonne.storybe.exception.custom.NotFoundException;
 import it.asansonne.storybe.mapper.ResponseModelMapper;
 import it.asansonne.storybe.mapper.impl.MasterModelMapper;
-import it.asansonne.storybe.model.jpa.Group;
-import it.asansonne.storybe.model.jpa.Master;
+import it.asansonne.storybe.model.jpa.GroupJpa;
+import it.asansonne.storybe.model.jpa.MasterJpa;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +39,7 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class KeycloakComponentImpl implements KeycloakComponent {
   private final MasterModelMapper masterMapper;
-  private final ResponseModelMapper<Master, MasterResponse> responseModelMapper;
+  private final ResponseModelMapper<MasterJpa, MasterResponse> responseModelMapper;
   private final GroupService groupService;
   @Value("${keycloak.host.user}")
   private String urlUser;
@@ -49,7 +49,7 @@ public class KeycloakComponentImpl implements KeycloakComponent {
    *
    * @param email of the user
    */
-  public Master readUser(String email) {
+  public MasterJpa readUser(String email) {
     if (SecurityContextHolder.getContext().getAuthentication()
         instanceof JwtAuthenticationToken jwtAuthToken) {
       ResponseEntity<String> response = new RestTemplate()
@@ -88,7 +88,7 @@ public class KeycloakComponentImpl implements KeycloakComponent {
    * @param userUuid the user id
    * @param request  updated user data
    */
-  public void updateUser(UUID userUuid, Group request) {
+  public void updateUser(UUID userUuid, GroupJpa request) {
     if (SecurityContextHolder.getContext().getAuthentication()
         instanceof JwtAuthenticationToken jwtAuthToken) {
       new RestTemplate()
@@ -119,7 +119,7 @@ public class KeycloakComponentImpl implements KeycloakComponent {
   }
 
   @Override
-  public void deleteUserGroup(UUID userUuid, Group group) {
+  public void deleteUserGroup(UUID userUuid, GroupJpa group) {
     if (SecurityContextHolder.getContext().getAuthentication()
         instanceof JwtAuthenticationToken jwtAuthToken) {
       new RestTemplate()

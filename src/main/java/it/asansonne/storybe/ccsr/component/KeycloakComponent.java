@@ -2,8 +2,8 @@ package it.asansonne.storybe.ccsr.component;
 
 import it.asansonne.storybe.dto.request.MasterRequest;
 import it.asansonne.storybe.dto.request.StatusRequest;
-import it.asansonne.storybe.model.jpa.Group;
-import it.asansonne.storybe.model.jpa.Master;
+import it.asansonne.storybe.model.jpa.GroupJpa;
+import it.asansonne.storybe.model.jpa.MasterJpa;
 import java.util.UUID;
 
 /**
@@ -17,7 +17,7 @@ public interface KeycloakComponent {
    * @param email the email
    * @return the master
    */
-  Master readUser(String email);
+  MasterJpa readUser(String email);
 
   /**
    * Create user.
@@ -32,7 +32,7 @@ public interface KeycloakComponent {
    * @param userUuid the user uuid
    * @param request  the request
    */
-  void updateUser(UUID userUuid, Group request);
+  void updateUser(UUID userUuid, GroupJpa request);
 
   /**
    * Update status user.
@@ -48,5 +48,5 @@ public interface KeycloakComponent {
    * @param userUuid the user uuid
    * @param group    the group
    */
-  void deleteUserGroup(UUID userUuid, Group group);
+  void deleteUserGroup(UUID userUuid, GroupJpa group);
 }

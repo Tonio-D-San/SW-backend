@@ -6,7 +6,7 @@ import it.asansonne.storybe.dto.request.MasterRequest;
 import it.asansonne.storybe.dto.response.MasterResponse;
 import it.asansonne.storybe.mapper.RequestModelMapper;
 import it.asansonne.storybe.mapper.ResponseModelMapper;
-import it.asansonne.storybe.model.jpa.Master;
+import it.asansonne.storybe.model.jpa.MasterJpa;
 import java.util.List;
 import org.springframework.stereotype.Component;
 
@@ -14,21 +14,21 @@ import org.springframework.stereotype.Component;
  * The type Master mapper.
  */
 @Component
-public class MasterModelMapper implements RequestModelMapper<MasterRequest, Master>,
-    ResponseModelMapper<Master, MasterResponse> {
+public class MasterModelMapper implements RequestModelMapper<MasterRequest, MasterJpa>,
+    ResponseModelMapper<MasterJpa, MasterResponse> {
 
   @Override
-  public Master toModel(MasterRequest dto) {
+  public MasterJpa toModel(MasterRequest dto) {
     if (dto == null) {
       return null;
     }
-    return Master.builder()
+    return MasterJpa.builder()
         .biography(dto.getBiography())
         .build();
   }
 
   @Override
-  public MasterResponse toDto(Master model) {
+  public MasterResponse toDto(MasterJpa model) {
     if (model == null) {
       return null;
     }
@@ -43,11 +43,11 @@ public class MasterModelMapper implements RequestModelMapper<MasterRequest, Mast
   }
 
   @Override
-  public Master dtoToModelResponse(MasterResponse dto) {
+  public MasterJpa dtoToModelResponse(MasterResponse dto) {
     if (dto == null) {
       return null;
     }
-    return Master.builder()
+    return MasterJpa.builder()
         .uuid(dto.getId())
         .email(dto.getEmail())
         .name(dto.getFirstName())

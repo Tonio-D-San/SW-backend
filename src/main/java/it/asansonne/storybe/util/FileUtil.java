@@ -2,7 +2,7 @@ package it.asansonne.storybe.util;
 
 import static it.asansonne.storybe.constant.SharedConstant.ADMIN;
 
-import it.asansonne.storybe.model.jpa.Master;
+import it.asansonne.storybe.model.jpa.MasterJpa;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -25,7 +25,7 @@ public class FileUtil {
    */
   public static String formatFileName(String originalFileName) {
     return StringUtils.cleanPath(originalFileName).toLowerCase()
-        .replaceAll(" ", "-");
+        .replace(" ", "-");
   }
 
   /**
@@ -100,7 +100,7 @@ public class FileUtil {
    * @param master the master
    * @return the boolean
    */
-  public static boolean isAdmin(Master master) {
+  public static boolean isAdmin(MasterJpa master) {
     return master.getGroups()
         .stream()
         .anyMatch(group ->

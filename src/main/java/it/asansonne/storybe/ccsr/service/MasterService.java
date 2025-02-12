@@ -1,6 +1,6 @@
 package it.asansonne.storybe.ccsr.service;
 
-import it.asansonne.storybe.model.jpa.Master;
+import it.asansonne.storybe.model.jpa.MasterJpa;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
@@ -17,7 +17,7 @@ public interface MasterService {
    * @param email the email
    * @return the optional
    */
-  Optional<Master> findMasterByEmail(String email);
+  Optional<MasterJpa> findMasterByEmail(String email);
 
   /**
    * Find master by uuid optional.
@@ -25,7 +25,7 @@ public interface MasterService {
    * @param masterUuid the master uuid
    * @return the optional
    */
-  Optional<Master> findMasterByUuid(UUID masterUuid);
+  Optional<MasterJpa> findMasterByUuid(UUID masterUuid);
 
   /**
    * Find all masters page.
@@ -33,7 +33,7 @@ public interface MasterService {
    * @param pageable the pageable
    * @return the page
    */
-  Page<Master> findAllMasters(Pageable pageable);
+  Page<MasterJpa> findAllMasters(Pageable pageable);
 
   /**
    * Find active masters page.
@@ -41,7 +41,7 @@ public interface MasterService {
    * @param pageable the pageable
    * @return the page
    */
-  Page<Master> findActiveMasters(Pageable pageable);
+  Page<MasterJpa> findActiveMasters(Pageable pageable);
 
   /**
    * Find inactive masters page.
@@ -49,7 +49,7 @@ public interface MasterService {
    * @param pageable the pageable
    * @return the page
    */
-  Page<Master> findInactiveMasters(Pageable pageable);
+  Page<MasterJpa> findInactiveMasters(Pageable pageable);
 
   /**
    * Update master.
@@ -57,5 +57,5 @@ public interface MasterService {
    * @param master the master
    * @return the master
    */
-  Master updateMaster(Master master);
+  MasterJpa updateMaster(MasterJpa master);
 }

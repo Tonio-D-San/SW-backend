@@ -1,6 +1,6 @@
 package it.asansonne.storybe.ccsr.repository.jpa;
 
-import it.asansonne.storybe.model.jpa.Master;
+import it.asansonne.storybe.model.jpa.MasterJpa;
 import it.asansonne.storybe.model.jpa.StoryJpa;
 import java.util.Optional;
 import java.util.UUID;
@@ -23,7 +23,7 @@ public interface StoryRepository extends JpaRepository<StoryJpa, Long> {
    * @param pageable the pageable
    * @return the page
    */
-  Page<StoryJpa> findAllStoriesByAuthor(Master author, Pageable pageable);
+  Page<StoryJpa> findAllStoriesByAuthor(MasterJpa author, Pageable pageable);
 
   /**
    * Find last added story.

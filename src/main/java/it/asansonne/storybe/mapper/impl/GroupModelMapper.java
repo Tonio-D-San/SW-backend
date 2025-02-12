@@ -4,28 +4,28 @@ import it.asansonne.storybe.dto.request.GroupRequest;
 import it.asansonne.storybe.dto.response.GroupResponse;
 import it.asansonne.storybe.mapper.RequestModelMapper;
 import it.asansonne.storybe.mapper.ResponseModelMapper;
-import it.asansonne.storybe.model.jpa.Group;
+import it.asansonne.storybe.model.jpa.GroupJpa;
 import org.springframework.stereotype.Component;
 
 /**
  * The type Master mapper.
  */
 @Component
-public class GroupModelMapper implements RequestModelMapper<GroupRequest, Group>,
-    ResponseModelMapper<Group, GroupResponse> {
+public class GroupModelMapper implements RequestModelMapper<GroupRequest, GroupJpa>,
+    ResponseModelMapper<GroupJpa, GroupResponse> {
 
   @Override
-  public Group toModel(GroupRequest dto) {
+  public GroupJpa toModel(GroupRequest dto) {
     if (dto == null) {
       return null;
     }
-    return Group.builder()
+    return GroupJpa.builder()
         .uuid(dto.getUuid())
         .build();
   }
 
   @Override
-  public GroupResponse toDto(Group model) {
+  public GroupResponse toDto(GroupJpa model) {
     if (model == null) {
       return null;
     }
@@ -37,11 +37,11 @@ public class GroupModelMapper implements RequestModelMapper<GroupRequest, Group>
   }
 
   @Override
-  public Group dtoToModelResponse(GroupResponse dto) {
+  public GroupJpa dtoToModelResponse(GroupResponse dto) {
     if (dto == null) {
       return null;
     }
-    return Group.builder()
+    return GroupJpa.builder()
         .uuid(dto.getUuid())
         .name(dto.getName())
         .path(dto.getPath())
@@ -54,7 +54,7 @@ public class GroupModelMapper implements RequestModelMapper<GroupRequest, Group>
    * @param group the group
    * @return the group request
    */
-  public GroupRequest toRequest(Group group) {
+  public GroupRequest toRequest(GroupJpa group) {
     if (group == null) {
       return null;
     }

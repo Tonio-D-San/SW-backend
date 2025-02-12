@@ -4,7 +4,7 @@ import static it.asansonne.storybe.constant.MessageConstant.GROUP_EMPTY;
 
 import it.asansonne.storybe.ccsr.repository.jpa.GroupRepository;
 import it.asansonne.storybe.ccsr.service.GroupService;
-import it.asansonne.storybe.model.jpa.Group;
+import it.asansonne.storybe.model.jpa.GroupJpa;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,8 +20,8 @@ public final class GroupServiceImpl implements GroupService {
   private final GroupRepository groupRepository;
 
   @Override
-  public Optional<Group> findGroupByUuid(UUID uuid) {
-    Optional<Group> group = groupRepository.findGroupByUuid(uuid);
+  public Optional<GroupJpa> findGroupByUuid(UUID uuid) {
+    Optional<GroupJpa> group = groupRepository.findGroupByUuid(uuid);
     if (group.isEmpty()) {
       throw new EntityNotFoundException(GROUP_EMPTY);
     }

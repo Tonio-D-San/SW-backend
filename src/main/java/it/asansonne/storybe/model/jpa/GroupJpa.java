@@ -33,7 +33,7 @@ import lombok.ToString;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode
 @ToString
-public class Group implements Models {
+public class GroupJpa implements Models {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
@@ -54,5 +54,5 @@ public class Group implements Models {
 
   @JsonIgnore
   @ManyToMany(mappedBy = "groups", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-  private List<Master> masters;
+  private List<MasterJpa> masters;
 }

@@ -18,8 +18,8 @@ import it.asansonne.storybe.dto.response.MasterResponse;
 import it.asansonne.storybe.exception.custom.NotFoundException;
 import it.asansonne.storybe.mapper.ResponseModelMapper;
 import it.asansonne.storybe.mapper.impl.GroupModelMapper;
-import it.asansonne.storybe.model.jpa.Group;
-import it.asansonne.storybe.model.jpa.Master;
+import it.asansonne.storybe.model.jpa.GroupJpa;
+import it.asansonne.storybe.model.jpa.MasterJpa;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,13 +41,13 @@ public class MasterComponentImpl implements MasterComponent {
   private final KeycloakComponent keycloakComponent;
   private final MasterService masterService;
   private final GroupService groupService;
-  private final ResponseModelMapper<Master, MasterResponse> masterResponseModelMapper;
+  private final ResponseModelMapper<MasterJpa, MasterResponse> masterResponseModelMapper;
   private final GroupModelMapper groupMapper;
 
   @Override
   public MasterResponse findMasterByUuid(UUID masterUuid) {
-    Master master = findMaster(masterUuid);
-    Master userResponse = keycloakComponent.readUser(master.getEmail());
+    MasterJpa master = findMaster(masterUuid);
+    MasterJpa userResponse = keycloakComponent.readUser(master.getEmail());
     userResponse.setGroups(master.getGroups());
     userResponse.setBiography(master.getBiography());
     userResponse.setProfileImage(master.getProfileImage());
@@ -75,10 +75,10 @@ public class MasterComponentImpl implements MasterComponent {
       masterRequest.setGroups(List.of(groupToGroupRequest()));
     }
     keycloakComponent.createUser(masterRequest);
-    Master master = keycloakComponent.readUser(masterRequest.getEmail());
-    List<Group> groups = listGroups(masterRequest.getGroups());
+    MasterJpa master = keycloakComponent.readUser(masterRequest.getEmail());
+    List<GroupJpa> groups = listGroups(masterRequest.getGroups());
     master.setGroups(groups);
-    for (Group group : groups) {
+    for (GroupJpa group : groups) {
       group.getMasters().add(master);
     }
     master.setBiography(masterRequest.getBiography());
@@ -105,7 +105,7 @@ public class MasterComponentImpl implements MasterComponent {
   @Override
   public MasterResponse updateGroupByMasterUuid(MasterGroupRequest masterUpdateRequest,
                                                 UUID masterUuid) {
-    Master master = findMaster(masterUuid);
+    MasterJpa master = findMaster(masterUuid);
     makeGroup(master, masterUpdateRequest);
     return masterResponseModelMapper.toDto(
         masterService.updateMaster(master)
@@ -115,19 +115,19 @@ public class MasterComponentImpl implements MasterComponent {
   @Override
   public void updateStatusMasterByUuid(UUID masterUuid, StatusRequest status) {
     keycloakComponent.updateStatusUser(masterUuid, status);
-    Master master = findMaster(masterUuid);
+    MasterJpa master = findMaster(masterUuid);
     master.setIsActive(status.getIsActive());
     masterService.updateMaster(master);
   }
 
-  private Master findMaster(UUID masterUuid) {
+  private MasterJpa findMaster(UUID masterUuid) {
     return masterService.findMasterByUuid(masterUuid)
         .orElseThrow(() -> new NotFoundException(PERSON_NOT_FOUND));
   }
 
-  private void makeGroup(Master master, MasterGroupRequest masterUpdateRequest) {
-    List<Group> currentGroups = new ArrayList<>(master.getGroups());
-    List<Group> newGroups = listGroups(masterUpdateRequest.getGroups());
+  private void makeGroup(MasterJpa master, MasterGroupRequest masterUpdateRequest) {
+    List<GroupJpa> currentGroups = new ArrayList<>(master.getGroups());
+    List<GroupJpa> newGroups = listGroups(masterUpdateRequest.getGroups());
     removeUser(currentGroups, newGroups, master);
     addUser(currentGroups, newGroups, master);
   }
@@ -135,8 +135,8 @@ public class MasterComponentImpl implements MasterComponent {
   // I take the user's groups and the groups from the DTO,
   // check if in the request I don't have the group then it means I'm no longer part of it,
   // and it deletes it from both the entity list and keycloak
-  private void removeUser(List<Group> currentGroups, List<Group> newGroups, Master master) {
-    for (Group currentGroup : currentGroups) {
+  private void removeUser(List<GroupJpa> currentGroups, List<GroupJpa> newGroups, MasterJpa master) {
+    for (GroupJpa currentGroup : currentGroups) {
       if (!getGroupUuidFromGroups(newGroups).contains(currentGroup.getUuid())) {
         keycloakComponent.deleteUserGroup(master.getUuid(), currentGroup);
         master.getGroups().remove(currentGroup);
@@ -147,8 +147,8 @@ public class MasterComponentImpl implements MasterComponent {
   // I take the user's groups and groups from the DTO, check if in the request
   // I have the group then I don't do anything, otherwise, if I don't have it,
   // it adds it either on the entity list or on keycloak
-  private void addUser(List<Group> currentGroups, List<Group> newGroups, Master master) {
-    for (Group newGroup : newGroups) {
+  private void addUser(List<GroupJpa> currentGroups, List<GroupJpa> newGroups, MasterJpa master) {
+    for (GroupJpa newGroup : newGroups) {
       if (!getGroupUuidFromGroups(currentGroups).contains(newGroup.getUuid())) {
         keycloakComponent.updateUser(master.getUuid(), newGroup);
         master.getGroups().add(newGroup);
@@ -156,9 +156,9 @@ public class MasterComponentImpl implements MasterComponent {
     }
   }
 
-  private Set<UUID> getGroupUuidFromGroups(List<Group> group) {
+  private Set<UUID> getGroupUuidFromGroups(List<GroupJpa> group) {
     return group.stream()
-        .map(Group::getUuid)
+        .map(GroupJpa::getUuid)
         .collect(Collectors.toSet());
   }
 
@@ -167,14 +167,14 @@ public class MasterComponentImpl implements MasterComponent {
         .orElseThrow(() -> new NotFoundException(GROUP_NOT_FOUND)));
   }
 
-  private List<Group> listGroups(List<GroupRequest> groups) {
+  private List<GroupJpa> listGroups(List<GroupRequest> groups) {
     return groups.stream().map(
             group -> groupService.findGroupByUuid(group.getUuid())
                 .orElseThrow(() -> new NotFoundException(GROUP_NOT_FOUND)))
-        .collect(Collectors.toList());
+        .toList();
   }
 
-  private Master updateFields(MasterUpdateRequest request, Master master) {
+  private MasterJpa updateFields(MasterUpdateRequest request, MasterJpa master) {
     master.setBiography(
         request.getBiography() != null ? request.getBiography() : master.getBiography());
     master.setProfileImage(
