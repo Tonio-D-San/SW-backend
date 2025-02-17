@@ -58,7 +58,7 @@ public class MasterRequest implements Dto {
       description = "Master email",
       name = "email",
       type = "String",
-      example = "example@cybsec.it")
+      example = "example@mail.it")
   private String email;
 
   @NotBlank(message = "Master surname must not be null or empty")
