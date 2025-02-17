@@ -1,17 +1,11 @@
 package it.asansonne.storybe.service.it;
 
-import static it.cybsec.app.util.DataBuilder.makeTestActivePerson;
-import static it.cybsec.app.util.DataBuilder.makeTestAttachment;
-import static it.cybsec.app.util.DataBuilder.makeTestTopic;
+import static it.asansonne.storybe.util.DataBuilder.makeTestActivePerson;
+import static it.asansonne.storybe.util.DataBuilder.makeTestTopic;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import it.cybsec.app.IntegrationTest;
-import it.cybsec.app.containers.keycloack.ContainersBuilder;
-import it.cybsec.app.model.Attachment;
-import it.cybsec.app.model.Topic;
-import it.cybsec.app.repository.AttachmentRepository;
-import it.cybsec.app.service.TopicService;
-import it.cybsec.app.service.impl.AttachmentServiceImpl;
+import it.asansonne.storybe.IntegrationTest;
+import it.asansonne.storybe.containers.keycloack.ContainersBuilder;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;

@@ -1,12 +1,7 @@
 package it.asansonne.storybe.util;
 
-import static it.cybsec.app.util.generator.NameSelector.getRandomPersonalName;
+import static it.asansonne.storybe.util.generator.NameSelector.getRandomPersonalName;
 
-import it.cybsec.app.model.Attachment;
-import it.cybsec.app.model.Category;
-import it.cybsec.app.model.Comment;
-import it.cybsec.app.model.Person;
-import it.cybsec.app.model.Topic;
 import java.time.Instant;
 import java.util.UUID;
 

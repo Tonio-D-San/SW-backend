@@ -3,7 +3,6 @@ package it.asansonne.storybe.containers.keycloack;
 import static io.smallrye.config.ConfigLogging.log;
 
 import dasniko.testcontainers.keycloak.KeycloakContainer;
-import it.cybsec.app.ApplicationTests;
 import java.util.Collections;
 import org.junit.jupiter.api.BeforeEach;
 import org.keycloak.OAuth2Constants;

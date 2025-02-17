@@ -1,13 +1,11 @@
 package it.asansonne.storybe.service.it;
 
-import static it.cybsec.app.util.DataBuilder.makeTestCategory;
+import static it.asansonne.storybe.util.DataBuilder.makeTestCategory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import it.cybsec.app.IntegrationTest;
-import it.cybsec.app.containers.keycloack.ContainersBuilder;
-import it.cybsec.app.model.Category;
-import it.cybsec.app.service.CategoryService;
+import it.asansonne.storybe.IntegrationTest;
+import it.asansonne.storybe.containers.keycloack.ContainersBuilder;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.UUID;
